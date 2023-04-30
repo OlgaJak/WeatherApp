@@ -48,6 +48,8 @@ public class Main {
         System.out.println("If you want to download weather values, please enter 3");
         System.out.println("make your choice: ");
 
+
+
         int choice;
         if (scanner.hasNextInt()) {
             choice = scanner.nextInt();

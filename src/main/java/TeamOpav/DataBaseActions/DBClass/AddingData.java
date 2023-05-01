@@ -40,8 +40,8 @@ public class AddingData {
         String jsonString2 = String.valueOf(HTTPWeatherCurrentHist2.getWeatherData(inputCity));
         ObjectMapper mapper2 = new ObjectMapper();
         JsonNode jsonNode2 = mapper2.readTree(jsonString2);
-        double tempeInFar = jsonNode2.get("main").get("temp").doubleValue();
-        double temperature2 = (tempeInFar - 32) * 5 / 9;
+
+        double temperature2 = jsonNode2.get("main").get("temp").doubleValue();
         double pressure2 = jsonNode2.get("main").get("pressure").doubleValue();
         double humidity2 = jsonNode2.get("main").get("humidity").doubleValue();
         double windSpeed2 = jsonNode2.get("wind").get("speed").doubleValue();
@@ -49,7 +49,7 @@ public class AddingData {
         //To retrieve data dd-MM-yyyy format
         long unixTimestamp = jsonNode2.get("dt").asLong();
         Date rawDate = new Date(unixTimestamp * 1000L); // Convert Unix timestamp to Java Date object
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Set the desired date format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); // Set the desired date format
         String date = sdf.format(rawDate); // Convert Date object to formatted date string
 
 

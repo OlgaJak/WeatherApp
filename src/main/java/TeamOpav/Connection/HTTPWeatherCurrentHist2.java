@@ -9,7 +9,7 @@ import java.util.Date;
 public class HTTPWeatherCurrentHist2 {
     public static StringBuffer getWeatherData(String location) throws Exception {
         String apiKey = "05e961f66c1f360264381097f750ec46";
-        URL url = new URL("https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + apiKey);
+        URL url = new URL("https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + apiKey + "&units=metric");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));

@@ -9,7 +9,7 @@ import java.util.Date;
 public class HTTPWeatherCurrentHist {
     public static StringBuffer getWeatherData(String location) throws Exception {
         String apiKey = "372e85960410a8f82e15c5353e020e2e";
-        URL url = new URL("http://api.weatherstack.com/current?access_key=" + apiKey + "&query=" + location);
+        URL url = new URL("http://api.weatherstack.com/current?access_key=" + apiKey + "&query=" + location + "&units=m");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));

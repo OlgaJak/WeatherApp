@@ -19,6 +19,7 @@ public class MySQLDatabaseCreator {
         this.username = username;
         this.password = password;
 
+
         this.connection = DriverManager.getConnection(databaseUrl, username, password);
         this.statement = connection.createStatement();
     }

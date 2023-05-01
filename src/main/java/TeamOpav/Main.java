@@ -4,6 +4,7 @@ import TeamOpav.Connection.HTTPWeatherCurrentHist;
 import TeamOpav.Connection.HTTPWeatherCurrentHist2;
 import TeamOpav.DataBaseActions.DBClass.AddingData;
 import TeamOpav.DataBaseActions.DBandTable.Creators.MySQLDatabaseCreator;
+import TeamOpav.DataBaseActions.DBandTable.ShowTable;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
@@ -70,15 +71,25 @@ public class Main {
 
                         AddingData add = new AddingData();
                         add.addCity(inputCity);
+                }
+                break;
 
 
+            case 2:
+                System.out.println("here is a list of all your added locations to your datatable: ");
+                System.out.println();
 
+                try {
+                    ShowTable show = new ShowTable("weather_api",username,password);
+                    show.showDatabaseTable("location");
+                } catch (SQLException e) {
+                    System.out.println("Error reading table: " + e.getMessage());
                 }
 
                 break;
-            case 2:
-                System.out.println("-");
-                break;
+
+
+
             case 3:
                 System.out.println("-");
                 break;

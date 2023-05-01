@@ -6,23 +6,57 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowTable {
-    public static void displayTable() {
+    private Statement statement;
+    public String databaseName;
+    public Connection connection;
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
-        EntityManager em = emf.createEntityManager();
+    public ShowTable(String databaseName, String username, String password) throws SQLException {
+        this.databaseName = databaseName;
+        this.connection = DriverManager.getConnection("jdbc:mysql://localhost/" + databaseName, username, password);
+        this.statement = connection.createStatement();
+    }
 
-        TypedQuery<Location> query = em.createQuery("SELECT l FROM Functions.Location l", Location.class);
-        List<Location> locations = query.getResultList();
-        System.out.println(String.format("%15S","id | cityName | longitude | latitude | region | countryName"));
-        for (Location location : locations) {
-            System.out.println(String.format("%15s",
-                    location.getId() + " | " + location.getCityName() + " | " + location.getLatitude() + "| " + location.getLongitude() + " | " + location.getRegion() + " | " + location.getCountryName()));
+    public void showDatabaseTable(String tableName) throws SQLException {
+        String sql = "SELECT * FROM `" + tableName + "`";
+
+        ResultSet resultSet = statement.executeQuery(sql);
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        int numColumns = rsmd.getColumnCount();
+
+        int[] columnWidths = new int[numColumns];
+        for (int i = 1; i <= numColumns; i++) {
+            columnWidths[i - 1] = Math.max(rsmd.getColumnName(i).length(), 19);// set a minimum column width of 10
+            // characters
         }
 
-        em.close();
-        emf.close();
+        // print table header
+        for (int i = 1; i <= numColumns; i++) {
+            String columnName = rsmd.getColumnName(i);
+            System.out.print(String.format("%-" + columnWidths[i - 1] + "s", columnName));
+            System.out.print(" | ");
+        }
+        System.out.println();
+
+        // print table separator
+        for (int i = 1; i <= numColumns; i++) {
+            System.out.print(String.format("%-" + columnWidths[i - 1] + "s", "-".repeat(columnWidths[i - 1])));
+            System.out.print("-+-");
+        }
+        System.out.println();
+
+        // print table data
+        while (resultSet.next()) {
+            for (int i = 1; i <= numColumns; i++) {
+                String columnValue = resultSet.getString(i);
+                System.out.print(String.format("%-" + columnWidths[i - 1] + "s", columnValue != null ? columnValue : "NULL"));
+                System.out.print(" | ");
+            }
+            System.out.println();
+        }
     }
 }

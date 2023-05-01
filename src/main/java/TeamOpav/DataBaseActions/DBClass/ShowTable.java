@@ -1,4 +1,4 @@
-package TeamOpav.DataBaseActions.DBandTable;
+package TeamOpav.DataBaseActions.DBClass;
 
 import TeamOpav.DataBaseActions.DBClass.Location;
 import jakarta.persistence.EntityManager;

@@ -1,11 +1,8 @@
 package TeamOpav;
 
-import TeamOpav.Connection.HTTPWeatherCurrentHist;
-import TeamOpav.Connection.HTTPWeatherCurrentHist2;
 import TeamOpav.DataBaseActions.DBClass.AddingData;
 import TeamOpav.DataBaseActions.DBandTable.Creators.MySQLDatabaseCreator;
-import TeamOpav.DataBaseActions.DBandTable.ShowTable;
-import org.json.JSONObject;
+import TeamOpav.DataBaseActions.DBClass.ShowTable;
 
 import java.sql.SQLException;
 import java.util.Scanner;

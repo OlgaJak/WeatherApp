@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 public class HTTPWeatherCurrentHist2 {
     public static StringBuffer getWeatherData(String location) throws Exception {
@@ -22,82 +23,11 @@ public class HTTPWeatherCurrentHist2 {
 
         return response;
     }
+
+
+//historical link: https://history.openweathermap.org/data/2.5/history/city?q={city name},{country code}&type=hour&start={start}&end={end}&appid={API key}
+
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public static class HTTPWeatherCurrent {
-//    }
-//    private HttpURLConnection connection;
-//    private BufferedReader reader;
-//    private StringBuilder content;
-//    private String line;
-//    private String source;
-//    private int status;
-//    private URL url;
-//
-//    public HTTPWeatherCurrent(String accessKey, String city) {
-//        try {
-//            content = new StringBuilder();
-//            source = "https://api.openweathermap.org/data/2" +
-//                    ".5/weather?q=" + city + "&appid=" + accessKey;
-//
-//            url = new URL(source);
-//            connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
-//            status = connection.getResponseCode();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public StringBuilder getData() {
-//        try {
-//            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//            while ((line = reader.readLine()) != null) {
-//                content.append(line);
-//            }
-//            reader.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return content;
-//    }
-//}
-//
-//
-//
-////    public HTTPWeatherHistorical(String accessKey, String city){
-////        try {
-////            content = new StringBuilder();
-////            source = "http://api.weatherstack.com/historical" +
-////                    "?access_key=" + accessKey +
-////                    "&query=\" +" + city +
-////            "historical_date=" + connection.getDate();
-////            url = new URL(source);
-////            connection = (HttpURLConnection) url.openConnection();
-////            connection.setRequestMethod("GET");
-////            status = connection.getResponseCode();
-////
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////        }
-//
-//
-//}

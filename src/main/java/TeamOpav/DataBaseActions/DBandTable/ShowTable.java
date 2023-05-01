@@ -11,7 +11,7 @@ import java.util.List;
 public class ShowTable {
     public static void displayTable() {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("weather_app");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
         EntityManager em = emf.createEntityManager();
 
         TypedQuery<Location> query = em.createQuery("SELECT l FROM Functions.Location l", Location.class);

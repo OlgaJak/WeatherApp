@@ -47,7 +47,7 @@ public class MySQLDatabaseCreator {
             return;
         }
 
-        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS" + tableName + " (");
+        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + " (");
         sql.append("id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,");
         for (int i = 0; i < columnNames.length; i++) {
             sql.append(columnNames[i]).append(" ").append(columnTypes[i]);

@@ -17,7 +17,7 @@ public class Main {
         String username = "root"; //null-no, error message, can be null in persistence
         String password = "3312"; //empty-no, error message,can be empty in persistence
         String databaseName = "weather_api";
-        JSONObject retrievedData;
+
 
         Scanner scanner = new Scanner(System.in);
 

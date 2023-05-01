@@ -9,7 +9,6 @@ import java.util.Date;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",unique = true,nullable = false)
     private int id;
     @Column(name = "latitude")
     private double latitude;
@@ -32,9 +31,13 @@ public class Location {
     @Column(name = "wind_speed",nullable = false)
     private double windSpeed;
     @Column(name = "date")
-    private Date date;
+    private String date;
 
-public Location(){
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Location(){
 }
     public int getId(int id) {
         return this.id;
@@ -124,14 +127,19 @@ public Location(){
         this.windSpeed = windSpeed;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public int getId() {
+        return id;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
 
-
+    public double getLongitude() {
+        return longitude;
+    }
 }

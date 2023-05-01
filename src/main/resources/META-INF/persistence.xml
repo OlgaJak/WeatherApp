@@ -11,7 +11,7 @@
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/weather_api?createDatabaseIfNotExist=true"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="3312"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
         </properties>
     </persistence-unit>

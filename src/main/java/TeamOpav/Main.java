@@ -1,7 +1,9 @@
 package TeamOpav;
 
 import TeamOpav.Connection.HTTPWeatherCurrentHist;
-import TeamOpav.DataBaseActions.DBandTable.MySQLDatabaseCreator;
+import TeamOpav.Connection.HTTPWeatherCurrentHist2;
+import TeamOpav.DataBaseActions.DBClass.AddingData;
+import TeamOpav.DataBaseActions.DBandTable.Creators.MySQLDatabaseCreator;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
@@ -9,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         String databaseUrl = "jdbc:mysql://localhost/";
         String username = "root"; //null-no, error message, can be null in persistence
@@ -22,34 +24,14 @@ public class Main {
         System.out.println("Welcome!");
 
 
-//creating database and table if not exist:
-        try {
-            MySQLDatabaseCreator creator = new MySQLDatabaseCreator(databaseUrl, username, password);
-
-            creator.createDatabase("weather_api", username, password);
-
-            creator.selectDatabase(databaseName);
-
-            creator.createTable("location", new String[]{"id", "latitude", "longitude", "city_name", "country_name",
-                            "region", "temperature", "pressure", "humidity", "wind_direction", "wind_speed", "date"},
-                    new String[]{"INT NOT NULL AUTO_INCREMENT PRIMARY KEY", "DOUBLE", "DOUBLE", "VARCHAR(255)", "VARCHAR(255)", "VARCHAR(255)", "DOUBLE", "DOUBLE", "DOUBLE", "VARCHAR(50)", "DOUBLE", "DATE"});
-
-            System.out.println("Database and table are ready!");
-            creator.close();
-
-        } catch (SQLException e) {
-            System.out.println("Error creating database and table: " + e.getMessage());
-        }
-
-
 //options presentation:
         System.out.println("If you want to add specific location to your weather database, please enter 1");
-        System.out.println("If you want to display all added locations tp ypu datatable, please enter 2");
+        System.out.println("If you want to display all added locations to your datatable, please enter 2");
         System.out.println("If you want to download weather values, please enter 3");
         System.out.println("make your choice: ");
 
 
-
+//checking entry:
         int choice;
         if (scanner.hasNextInt()) {
             choice = scanner.nextInt();
@@ -58,20 +40,39 @@ public class Main {
             return;
         }
 
+        //switch cases:
         switch (choice) {
             case 1:
                 System.out.print("Please enter City: ");
                 Scanner scn = new Scanner(System.in);
-                String city = scn.nextLine();
+                String inputCity = scn.nextLine();
 
-                if (city.length() > 0) {
-                    HTTPWeatherCurrentHist.HTTPWeatherCurrent request = new HTTPWeatherCurrentHist.HTTPWeatherCurrent(
-                            "372e85960410a8f82e15c5353e020e2e", city);
 
-                    StringBuilder data = request.getData();
+                if (inputCity.length() > 0) {
 
-                    retrievedData = new JSONObject(data.toString());
-                    System.out.println(retrievedData);
+
+                    try {
+                        MySQLDatabaseCreator creator = new MySQLDatabaseCreator(databaseUrl, username, password);
+                        creator.createDatabase("weather_api", username, password);
+                        creator.useDatabase(databaseName);
+                      creator.createTable("location", new String[]{"id", "latitude", "longitude", "city_name",
+                                        "country_name",
+                                        "region", "temperature", "pressure", "humidity", "wind_direction", "wind_speed", "date"},
+                                new String[]{"INT NOT NULL AUTO_INCREMENT PRIMARY KEY", "DOUBLE", "DOUBLE", "VARCHAR(255)", "VARCHAR(255)", "VARCHAR(255)", "DOUBLE", "DOUBLE", "DOUBLE", "VARCHAR(50)", "DOUBLE", "DATE"});
+                        System.out.println("Database and table are ready!");
+                        creator.close();
+
+
+                    } catch (SQLException e) {
+                        System.out.println("Error creating database and table: " + e.getMessage());
+
+                }
+
+                        AddingData add = new AddingData();
+                        add.addCity(inputCity);
+
+
+
                 }
 
                 break;
@@ -85,8 +86,8 @@ public class Main {
                 System.exit(0);
                 break;
         }
-
+    }
 
         }
 
-    }
+

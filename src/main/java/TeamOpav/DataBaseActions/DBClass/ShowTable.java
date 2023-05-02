@@ -30,7 +30,7 @@ public class ShowTable {
 
         int[] columnWidths = new int[numColumns];
         for (int i = 1; i <= numColumns; i++) {
-            columnWidths[i - 1] = Math.max(rsmd.getColumnName(i).length(), 19);// set a minimum column width of 10
+            columnWidths[i - 1] = Math.max(rsmd.getColumnName(i).length(), 14);// set a minimum column width of 10
             // characters
         }
 

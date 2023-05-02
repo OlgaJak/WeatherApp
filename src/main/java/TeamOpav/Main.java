@@ -1,10 +1,12 @@
 package TeamOpav;
 
 import TeamOpav.DataBaseActions.DBClass.AddingData;
+import TeamOpav.DataBaseActions.DBClass.ExportTable;
 import TeamOpav.DataBaseActions.DBandTable.Creators.MySQLDatabaseCreator;
 import TeamOpav.DataBaseActions.DBClass.ShowTable;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -40,7 +42,7 @@ public class Main {
 
         //switch cases:
         switch (choice) {
-            case 1:
+            case 1:                                       //ADDING LOCATION
                 System.out.print("Please enter City: ");
                 Scanner scn = new Scanner(System.in);
                 String inputCity = scn.nextLine();
@@ -72,7 +74,7 @@ public class Main {
                 break;
 
 
-            case 2:
+            case 2:                                     //SHOWING TABLE
                 System.out.println("here is a list of all your added locations to your datatable: ");
                 System.out.println();
 
@@ -87,10 +89,14 @@ public class Main {
 
 
 
-            case 3:
+            case 3:                                     //DOWNLOADING DATA
                 System.out.println("-");
+                ExportTable saver = new ExportTable(databaseName, username, password);
+                saver.saveTableDataToFile("location", "TableData", "txt");
                 break;
-            case 4:
+
+
+            case 4:                                          //EXIT
                 System.exit(0);
                 break;
         }

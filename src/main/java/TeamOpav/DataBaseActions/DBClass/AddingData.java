@@ -49,12 +49,15 @@ public class AddingData {
         //To retrieve data dd-MM-yyyy format
         long unixTimestamp = jsonNode2.get("dt").asLong();
         Date rawDate = new Date(unixTimestamp * 1000L); // Convert Unix timestamp to Java Date object
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); // Set the desired date format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // Set the desired date format
         String date = sdf.format(rawDate); // Convert Date object to formatted date string
 
 
         //Average of APIs values;
+
         double temp = (temperature1 + temperature2) / 2;
+        String formattedTemp = String.format("%.2f", temp);
+
         double pressure = (pressure1 + pressure2) / 2;
         double humidity = (humidity1 + humidity2) / 2;
         double windSpeed = (windSpeed1 + windSpeed2) / 2;
@@ -80,7 +83,7 @@ public class AddingData {
 
             entityManager.persist(newLocation);
             entityManager.getTransaction().commit();
-            System.out.println(city + "(Lon: " + lon + ", Lat " + lat + "), " + region + ", " + country + " - was added to database successfully!");
+            System.out.println(city + ", " + country + " - was added to database successfully!");
 
             entityManager.persist(newLocation);
             entityManager.getTransaction().commit();
